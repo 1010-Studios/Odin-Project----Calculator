@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+.main__container {
+  display: flex;
+  /* background-color: black; */
+  /* border: 2px solid black; */
+  height: 100vh;
+  justify-content: center;
+}
+
+.calc__container {
+  display: grid;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 5px;
+  grid-template-rows: 2fr 6fr;
+  margin: 10%;
+  width: 80%;
+  max-width: 350px;
+  height: 80%;
+  max-height: 650px;
+  background-color: gray;
+}
+
+.calc__output__screen {
+  background-color: green;
+  font-family: "VT323", monospace;
+  justify-self: center;
+  text-align: center;
+  width: 90%;
+  height: 80%;
+  overflow: hidden;
+
+  margin: 2% 2% 2% 2%;
+  border: 5px double black;
+  box-shadow: slategray 0px 2px 0px 2px;
+  border-radius: 15px;
+}
+
+.upper__nums {
+  position: relative;
+  display: flex;
+  height: 1.4rem;
+  top: 1%;
+}
+
+.display__num {
+  font-size: 3.2rem;
+}
+.mem__nums {
+  padding: -3px;
+  font-size: 1.4rem;
+  max-width: 16rem;
+  overflow: hidden;
+}
+
+.lower__nums {
+  /* border: 2px solid black; */
+  border-radius: 15px;
+  margin: 5px;
+  height: 60%;
+  margin-top: 5%;
+}
+
+button {
+  font-size: 1.2rem;
+  border-radius: 50px;
+  border: 1px double black;
+  margin: 1px;
+  box-shadow: slategray 0px 2px 0px 2px;
+}
+
+button:hover {
+  opacity: 75%;
+}
+
+button:disabled {
+  background-color: black;
+  opacity: 10%;
+}
+
+.btn__num {
+  border-radius: 25px;
+  border: 1px solid black;
+}
+.btn__exp {
+  background-color: darkgray;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
+.btn__fn {
+  /* background-color: blue; */
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.calc__buttons__container {
+  display: grid;
+  /* border: 2px solid black; */
+  margin: 2px 2px 2px 2px;
+  grid-template-areas:
+    "nums  exp"
+    "eq eq";
+  grid-template-columns: 5fr 2fr;
+  grid-template-rows: 5fr 1fr;
+}
+
+.calc__buttons__nums {
+  grid-area: nums;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+}
+
+.calc__buttons__exp {
+  grid-area: exp;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.btn__eq {
+  /* background-color: aqua; */
+  grid-area: eq;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  width: 100%;
+  /* margin-left: 20rem; */
+}

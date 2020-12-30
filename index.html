@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="Calcumalator" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="main__container">
+      <div class="calc__container">
+        <div class="calc__output__screen">
+          <div class="upper__nums">
+            <span class="mem__nums" id="display__equation">_</span>
+          </div>
+          <div class="lower__nums">
+            <span class="display__num" id="display__main"></span>
+          </div>
+        </div>
+        <div class="calc__buttons__container">
+          <div class="calc__buttons__nums">
+            <button type="button" class="btn__num" value="7" id="num__7">
+              7
+            </button>
+            <button type="button" class="btn__num" value="8" id="num__8">
+              8
+            </button>
+            <button type="button" class="btn__num" value="9" id="num__9">
+              9
+            </button>
+
+            <button type="button" class="btn__num" value="4" id="num__4">
+              4
+            </button>
+            <button type="button" class="btn__num" value="5" id="num__5">
+              5
+            </button>
+            <button type="button" class="btn__num" value="6" id="num__6">
+              6
+            </button>
+
+            <button type="button" class="btn__num" value="1" id="num__1">
+              1
+            </button>
+            <button type="button" class="btn__num" value="2" id="num__2">
+              2
+            </button>
+            <button type="button" class="btn__num" value="3" id="num__3">
+              3
+            </button>
+
+            <button type="button" class="btn__fn" id="exp__neg">+/-</button>
+            <button type="button" class="btn__num" value="0" id="num__0">
+              0
+            </button>
+            <button type="button" class="btn__num" id="exp__dec" value=".">
+              .
+            </button>
+          </div>
+          <div class="calc__buttons__exp">
+            <button type="button" class="btn__exp" id="exp__add">+</button>
+            <button type="button" class="btn__exp" id="exp__min">-</button>
+            <button type="button" class="btn__exp" id="exp__div">/</button>
+            <button type="button" class="btn__exp" id="exp__mul">x</button>
+          </div>
+          <div class="btn__eq">
+            <button type="button" class="btn__fn" id="exp__clr">CLR</button>
+            <button type="button" class="btn__exp" id="exp__equ">=</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
