@@ -9,6 +9,8 @@ const BTNequ = document.getElementById("exp__equ");
 const BTNclr = document.getElementById("exp__clr");
 const BTNneg = document.getElementById("exp__neg");
 
+// BTNneg.disabled = true; //temporary disabling of +/- button
+
 let tempNum = "";
 let op1 = "";
 let op2 = "";
@@ -19,124 +21,105 @@ let disabled = true;
 
 function _drawScreen() {
   console.log(`------DRAWSCREEN------`);
-  console.log(`---OP1: ${op1} |Operator:${operator}| OP2: ${op2}---`);
+  console.log(`---OP1: ${op1} | ${operator} | OP2: ${op2}---`);
+  console.log(`---TEMPNUM: ${tempNum}---`);
+  console.log(`Display: ${displayProduct}`);
   printEquationScreen.innerHTML = displayEquation;
   printMainScreen.innerHTML = displayProduct;
 }
 
-function _decideOperation() {
-  if (op1 === 0 || (op2 === 0 && operator === `exp__div`)) {
-    console.log(`Attempting to divide by 0`);
-    displayProduct = `ERROR || Div/0!`;
-  } else if (op1 >= 0 && op2 >= 0) {
-    displayProduct = operate(op1, op2, operator);
-  } else if (op1 >= 0 && typeof op2 !== "string") {
-    console.log(`---OP1: ${op1} |Operator:${operator}| OP2: ${op2}---`);
+function _operate(x1, x2, op) {
+  function _operator() {
+    if (typeof x1 === "number" && typeof x2 === "number") {
+      switch (op) {
+        case `*`:
+          return x1 * x2;
+        case `/`:
+          if (x1 === 0 || x2 === 0) {
+            toggleDisabledButtons(true);
+            return `!Div/0! `;
+          } else return x1 / x2;
+        case `+`:
+          return x1 + x2;
+        case `-`:
+          return x1 - x2;
+        case `Enter`:
+          return x1;
+        default:
+          break;
+      }
+    } else {
+      console.log(`Yo`);
+      return tempNum;
+    }
   }
-
-  _drawScreen();
+  displayEquation = `${op1} ${operator} ${op2}`;
+  displayProduct = _operator();
+  op1 = "";
+  op2 = "";
+  tempNum = "";
+  operator = "";
+  console.log(`operate`);
 }
 
-function operate() {
-  function _decide() {
-    switch (operator) {
-      case `exp__mul`:
-        return op1 * op2;
-      case `exp__div`:
-        if (op1 === 0 || op2 === 0) {
-          toggleDisabledButtons(true);
-          return `!Div/0! `;
-        } else return op1 / op2;
-      case `exp__add`:
-        return op1 + op2;
-      case `exp__min`:
-        return op1 - op2;
-      default:
-        break;
+function inputNumbers(e) {
+  if (op1 === "") displayEquation = ``;
+  if (e === ".") {
+    BTNdec.disabled = true;
+  }
+
+  if (e === "neg") {
+    if (tempNum.includes(`-`)) {
+      tempNum = tempNum.replace(`-`, ``);
+      e = "";
+    } else {
+      tempNum = `-` + tempNum;
+      e = "";
     }
   }
 
-  //Failsafe for Equals button hit before second number input
-  if (typeof op2 !== "number") {
-    displayProduct = displayProduct;
-  } else displayProduct = _decide();
+  if (tempNum.length <= 9) tempNum += e;
+  if (op1 !== "") op2 = parseFloat(tempNum);
 
-  displayEquation = `${op1} ${displayOperator(operator)} ${op2} =`;
-  op1 = parseFloat(displayProduct);
-  op2 = ``;
-  operator = "";
-  console.log(`|----Product----|`);
-  console.log(`|----${displayProduct}----|`);
+  displayProduct = tempNum;
   _drawScreen();
 }
 
-function displayOperator(ops) {
-  console.log(ops);
-  switch (ops) {
-    case `exp__mul`:
-      return `*`;
-    case `exp__div`:
-      return `/`;
-    case `exp__add`:
-      return `+`;
-    case `exp__min`:
-      return `-`;
-    default:
-      return "";
+function inputOperator(e) {
+  if (BTNdec.disabled === true) BTNdec.disabled = false;
+  if (e === "Enter") {
+    _operate(op1, op2, operator);
+  } else {
+    if (typeof op1 === "number" && typeof op2 === "number")
+      _operate(op1, op2, operator);
+
+    operator = e;
+
+    if (op1 === "" && operator !== "") {
+      op1 = parseFloat(displayProduct);
+    }
+
+    displayEquation = `${op1} ${operator} ${op2}`;
+    displayProduct = "";
+    tempNum = "";
+    console.log(`Inputop`);
   }
+
+  _drawScreen();
 }
 
 function _detectInput() {
   //Number Buttons
   btnNums.forEach((i) =>
     i.addEventListener("click", function () {
-      if ((op1 !== "" && operator === "") || operator === "exp__equ") {
-        displayEquation = "";
-        op1 = "";
-      }
-
-      if (tempNum === "" && i.id === "exp__dec") {
-        tempNum = "0";
-      }
-
-      if (tempNum.length <= 9) {
-        tempNum += i.value;
-      }
-      if (operator !== "" || operator === "exp__equ") {
-        op2 = parseFloat(tempNum);
-      } else {
-        // op1 = displayProduct;
-      }
-
-      displayProduct = tempNum;
-      _drawScreen();
+      inputNumbers(i.value);
     })
   );
 
   //Operator Buttons
   BTNExp.forEach((i) =>
     i.addEventListener("click", function () {
-      //Set operator here
-      if (operator !== "" && i.id !== "exp__equ") {
-        operator = i.id;
-      }
-      if (i.id === "exp__equ") {
-        operate();
-      }
-      if (op1 === "") {
-        op1 = parseFloat(displayProduct);
-        displayProduct = "";
-      }
-      if (typeof op1 === "number" && typeof op2 === "number") {
-        operate();
-      }
-      if (op1 !== "" && i.id !== "exp__equ") {
-        displayEquation = `${op1} ${displayOperator(i.id)}`;
-        displayProduct = "";
-      }
-      operator = i.id;
-      tempNum = "";
-      _drawScreen();
+      inputOperator(i.value);
     })
   );
 
@@ -145,10 +128,37 @@ function _detectInput() {
 
   //Negative Number Button
   BTNneg.addEventListener("click", function () {
-    console.log(`Not Implemented!`);
+    inputNumbers(`neg`);
   });
 
   //keyboard functionality
+  document.addEventListener(`keydown`, function (e) {
+    if (
+      e.key === "0" ||
+      e.key === "1" ||
+      e.key === "2" ||
+      e.key === "3" ||
+      e.key === "4" ||
+      e.key === "5" ||
+      e.key === "6" ||
+      e.key === "7" ||
+      e.key === "8" ||
+      e.key === "9" ||
+      e.key === "."
+    ) {
+      inputNumbers(e.key);
+    }
+    if (
+      e.key === "+" ||
+      e.key === "-" ||
+      e.key === "*" ||
+      e.key === "/" ||
+      e.key === "Enter"
+    ) {
+      console.log(e.key);
+      inputOperator(e.key);
+    }
+  });
 }
 
 function clearScreen() {
@@ -167,7 +177,7 @@ function toggleDisabledButtons(dis) {
   if (!dis) {
     BTNExp.forEach((i) => (i.disabled = false));
     btnNums.forEach((i) => (i.disabled = false));
-    BTNneg.disabled = false;
+    // BTNneg.disabled = false;
   } else {
     BTNExp.forEach((i) => (i.disabled = true));
     btnNums.forEach((i) => (i.disabled = true));

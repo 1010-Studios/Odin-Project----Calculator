@@ -6,8 +6,16 @@
   /* border: 2px solid black; */
   height: 100vh;
   justify-content: center;
+  background: url("https://www.icegif.com/wp-content/uploads/fish-jar-icegif.gif");
+  background-position: left;
+  background-size: 300px 300px;
 }
 
+@media only screen and (max-width: 600px) {
+  .main__container {
+    background-size: 100px 100px;
+  }
+}
 .calc__container {
   display: grid;
   border: 2px solid black;
@@ -95,6 +103,13 @@ button:disabled {
   border: 1px solid black;
 }
 
+.key__enter {
+  position: relative;
+  top: -10px;
+  font-size: 0.8rem;
+  /* border: 2px solid black; */
+}
+
 .calc__buttons__container {
   display: grid;
   /* border: 2px solid black; */
@@ -104,6 +119,12 @@ button:disabled {
     "eq eq";
   grid-template-columns: 5fr 2fr;
   grid-template-rows: 5fr 1fr;
+  padding: 5px;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .calc__buttons__nums {
